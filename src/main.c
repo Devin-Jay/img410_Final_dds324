@@ -24,18 +24,34 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    // raycast scene and create output image
-    PPMImage *result = raycast(scene, atoi(argv[1]), atoi(argv[2]));
+    int totalFrames = 300;
 
-    // output image to ppm file
-    writeOutputPPMFile(argv[4], result);
+    for (int frame = 0; frame < totalFrames; frame++) {
+        float t = frame * 0.05f;
+
+        //  move sphere in a circle
+        scene->objects[0].pos.y = cosf(t) * 2.0f;
+        scene->objects[0].pos.x = sinf(t) * 2.0f;
+
+        // Render
+        PPMImage* img = raycast(scene, atoi(argv[1]), atoi(argv[2]));
+
+        // Save frame
+        char filename[25];
+        sprintf(filename, "images/%s_%04d.ppm", argv[4], frame);
+        writeOutputPPMFile(filename, img);
+
+        free(img->pixels);
+        free(img);
+    }
+
 
     // free allocated memory
     free(scene->objects);
     free(scene->lights);
     free(scene);
-    free(result->pixels);
-    free(result);
 
 	return 0;
+
+    //make && ./build/raycast.exe 500 500 input.scene output && ffmpeg -framerate 30 -i images/output_%04d.ppm -pix_fmt yuv420p output.mp4
 }
