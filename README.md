@@ -1,4 +1,4 @@
-# img410_3_dds324
+# img410_Fina_dds324
 
 # Authors
 Devin Jay San Nicolas
@@ -6,6 +6,8 @@ dds324@nau.edu
 
 # Usage
 Download/clone repo.
+
+ffmpeg is needed
 
 Make
 
@@ -19,8 +21,9 @@ raycast.c now implements lighting and shadows when calculating a pixel's color.
 
 structures.h contains various datatypes created.
 
-Run with ./raycast 200 200 input.scene output.ppm
+Run with ./build/raycast.exe 500 500 input.scene output && ffmpeg -framerate 30 -i images/output_%04d.ppm -pix_fmt yuv420p output.mp4
 
+output images are put into the images folder and a output.mp4 is made
 Make clean to delete object files and .exe files.
 
 # Known Issues
