@@ -1,4 +1,4 @@
-# img410_Fina_dds324
+# img410_Final_dds324
 
 # Authors
 Devin Jay San Nicolas
